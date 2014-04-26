@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "ngh": "bin/ngh.js"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/jrf0110/ngh.git"
