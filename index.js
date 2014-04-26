@@ -4,7 +4,9 @@ var config  = require('./config');
 var errors  = require('./errors');
 
 module.exports.createClient = function( options ){
-  if ( !config.token ){
+  options = options || {};
+
+  if ( !options.token && !config.token ){
     throw new Error('Access token required!');
   }
 
@@ -68,7 +70,7 @@ module.exports.createClient = function( options ){
 
   , getBasicAuthCredentials: function(){
       return {
-        username: config.token
+        username: options.token || config.token
       , password: 'x-oauth-basic'
       };
     }
