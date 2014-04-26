@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var config  = require('../config');
+
+if ( !config.token ){
+  console.log('Must export your github personal access token as `NGH_ACCESS_TOKEN`');
+  process.exit(1);
+}
+
+program.version('0.1.0');
+
+program
+  .command('create [name]')
+  .description('creates a new repository')
+  .option('-d, --description <description>', 'Repository description')
+  .option('-h, --homepage <homepage>', 'Repository homepage')
+  .option('-p, --private', 'Denotes that the repo is private')
+  .action( require('../actions/create') );
+
+program
+  .command('remove [org/name]')
+  .description('removes a new repository')
+  .action( require('../actions/remove') );
+
+program.parse( process.argv );

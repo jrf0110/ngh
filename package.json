@@ -1,0 +1,21 @@
+{
+  "name": "ngh",
+  "version": "0.1.0",
+  "description": "Github client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jrf0110/ngh.git"
+  },
+  "keywords": [
+    "Github"
+  ],
+  "author": "John Fawcett",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/jrf0110/ngh/issues"
+  }
+}
