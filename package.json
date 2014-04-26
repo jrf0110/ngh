@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "ngh": "bin/ngh.js"
+    "ngh": "bin/ngh"
   },
   "repository": {
     "type": "git",
