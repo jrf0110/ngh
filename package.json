@@ -20,5 +20,9 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/jrf0110/ngh/issues"
+  },
+  "dependencies": {
+    "commander": "^2.2.0",
+    "request": "^2.34.0"
   }
 }
