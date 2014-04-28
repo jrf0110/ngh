@@ -26,6 +26,16 @@ __CLI Usage:__
     -V, --version  output the version number
 ```
 
+__Example:__
+
+```
+$ ngh create test
+Created repository: test
+Push an existing repository
+  git remote add origin git@github.com:jrf0110/ngh.git
+  git push -u origin master
+```
+
 ## API
 
 The actual client can be found in `index.js`.
