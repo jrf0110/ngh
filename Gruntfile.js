@@ -25,7 +25,7 @@ module.exports = function( grunt ){
     }
 
   , jshint: {
-      all: ['*.js', 'lib/*.js', 'bin/*.js'],
+      all: ['*.js', 'lib/*.js', 'bin/ngh', 'bin/*.js', 'bin/**/*.js'],
       options: {
         ignores: ['node_modules'],
         laxcomma: true,

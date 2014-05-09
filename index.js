@@ -13,6 +13,8 @@ module.exports.createClient = function( options ){
   return Object.create({
     userAgent: 'ngh'
 
+  , token: options.token
+
   , createRepo: function( name, options, callback ){
       var this_ = this;
 
@@ -41,7 +43,8 @@ module.exports.createClient = function( options ){
           case 422: return callback( JSON.parse( body ).errors[0].message );
           default:  break;
         }
-        return callback( error );
+
+        return callback( error, JSON.parse( body ) );
       });
     }
 
@@ -70,7 +73,7 @@ module.exports.createClient = function( options ){
 
   , getBasicAuthCredentials: function(){
       return {
-        username: options.token || config.token
+        username: this.token || config.token
       , password: 'x-oauth-basic'
       };
     }

@@ -1,5 +1,5 @@
-var config = require('../config');
-var github = require('../');
+var config = require('../../config');
+var github = require('../../');
 
 module.exports = function( name, options ){
   var gh = github.createClient();

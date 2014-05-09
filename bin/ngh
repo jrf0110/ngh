@@ -3,12 +3,14 @@
 var program = require('commander');
 var config  = require('../config');
 
-if ( !config.token ){
-  console.log('Must export your github personal access token as `NGH_ACCESS_TOKEN`');
+if ( !config.token && process.argv.indexOf('--token') === -1 && process.argv.indexOf('--help') === -1 ){
+  console.log('Must export your github personal access token as `NGH_ACCESS_TOKEN` or use the --token flag');
   process.exit(1);
 }
 
 program.version('0.1.0');
+
+program.option('--token', 'Specifies your github personal access token');
 
 program
   .command('create [name]')
@@ -16,11 +18,11 @@ program
   .option('-d, --description <description>', 'Repository description')
   .option('-h, --homepage <homepage>', 'Repository homepage')
   .option('-p, --private', 'Denotes that the repo is private')
-  .action( require('../actions/create') );
+  .action( require('./commands/create') );
 
 program
   .command('remove [org/name]')
   .description('removes a new repository')
-  .action( require('../actions/remove') );
+  .action( require('./commands/remove') );
 
 program.parse( process.argv );

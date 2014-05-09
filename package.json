@@ -20,5 +20,12 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/jrf0110/ngh/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-watch": "~0.6.1"
+  },
+  "dependencies": {
+    "grunt-contrib-jshint": "~0.10.0"
   }
 }
