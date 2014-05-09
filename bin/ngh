@@ -30,7 +30,8 @@ program
   .description('opens an issue')
   .option('-o, --organization <organization>', 'Repository owner/organization')
   .option('-r, --repo <repo_name>', 'Repository name')
-  .option('-t, -m, --title <title>', 'Issue title')
+  .option('-t, --title <title>', 'Issue title')
+  .option('-m, --title <title>', 'Issue title')
   .option('-b, --body <body>', 'Issue body')
   .option('-a, --assignee <assignee>', 'Login for the user that this issue should be assigned to')
   .option('-i, --milestone <milestone>', 'Milestone ID to associate this issue with')
@@ -47,8 +48,8 @@ program
 program
   .command('issues [org/name]')
   .description('lists issues for org/name or current repo')
-  .action( function( name, options ){
-    console.log(name);
-  });
+  .option('-o, --organization <organization>', 'Repository owner/organization')
+  .option('-r, --repo <repo_name>', 'Repository name')
+  .action( require('./commands/list-issues') );
 
 program.parse( process.argv );
