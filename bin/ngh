@@ -18,11 +18,37 @@ program
   .option('-d, --description <description>', 'Repository description')
   .option('-h, --homepage <homepage>', 'Repository homepage')
   .option('-p, --private', 'Denotes that the repo is private')
-  .action( require('./commands/create') );
+  .action( require('./commands/create-repo') );
 
 program
   .command('remove [org/name]')
   .description('removes a new repository')
-  .action( require('./commands/remove') );
+  .action( require('./commands/remove-repo') );
+
+program
+  .command('open')
+  .description('opens an issue')
+  .option('-o, --organization <organization>', 'Repository owner/organization')
+  .option('-r, --repo <repo_name>', 'Repository name')
+  .option('-t, -m, --title <title>', 'Issue title')
+  .option('-b, --body <body>', 'Issue body')
+  .option('-a, --assignee <assignee>', 'Login for the user that this issue should be assigned to')
+  .option('-i, --milestone <milestone>', 'Milestone ID to associate this issue with')
+  .option('-l, --labels <labels>', 'Comma separated label list', function( v ){ return v.split(','); })
+  .action( require('./commands/open-issue') );
+
+program
+  .command('close <issue_number>')
+  .description('closes an issue')
+  .action( function( id, options ){
+    console.log('close', id );
+  });
+
+program
+  .command('issues [org/name]')
+  .description('lists issues for org/name or current repo')
+  .action( function( name, options ){
+    console.log(name);
+  });
 
 program.parse( process.argv );

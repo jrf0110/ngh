@@ -2,6 +2,7 @@ var qs      = require('querystring');
 var request = require('request');
 var config  = require('./config');
 var errors  = require('./errors');
+var utils   = require('./lib/utils');
 
 module.exports.createClient = function( options ){
   options = options || {};
@@ -16,8 +17,6 @@ module.exports.createClient = function( options ){
   , token: options.token
 
   , createRepo: function( name, options, callback ){
-      var this_ = this;
-
       var rbody = {
         name: name
       };
@@ -32,7 +31,7 @@ module.exports.createClient = function( options ){
       , auth:   this.getBasicAuthCredentials()
       , body:   JSON.stringify( rbody )
       , headers: {
-          'User-Agent': this_.userAgent
+          'User-Agent': this.userAgent
         }
       };
 
@@ -49,14 +48,12 @@ module.exports.createClient = function( options ){
     }
 
   , removeRepo: function( orgAndName, callback ){
-      var this_ = this;
-
       var req = {
         url:    [ config.repoUrl, orgAndName ].join('/')
       , method: 'DELETE'
       , auth:   this.getBasicAuthCredentials()
       , headers: {
-          'User-Agent': this_.userAgent
+          'User-Agent': this.userAgent
         }
       };
 
@@ -68,6 +65,51 @@ module.exports.createClient = function( options ){
         }
 
         return callback( error );
+      });
+    }
+
+  , createIssue: function( options, callback ){
+      var rbody = {};
+
+      // Issue create properties
+      [
+        'title', 'body', 'assignee', 'milestone', 'labels'
+      ].forEach( function( key ){
+        if ( key in options ) rbody[ key ] = options[ key ];
+      });
+
+      // Required properties
+      [
+        'title', 'organization', 'repo'
+      ].forEach( function( key ){
+        if ( !(key in options) ){
+          throw new Error('Missing required first argument property: `' + key + '`');
+        }
+      });
+
+      var req = {
+        url:      utils.tmpl( config.issuesUrl, {
+                    owner: options.organization
+                  , repo:  options.repo
+                  })
+      , method:   'POST'
+      , auth:     this.getBasicAuthCredentials()
+      , body:     JSON.stringify( rbody )
+      , headers:  { 'User-Agent': this.userAgent }
+      };
+
+      request( req, function( error, res, body ){
+        if ( error ){
+          return callback( error );
+        }
+
+        switch ( res.statusCode ){
+          case 404: return callback( errors.repo.NOT_FOUND );
+          case 401: return callback( errors.auth.NOT_ALLOWED );
+          default:  break;
+        }
+
+        return callback( null, JSON.parse( body ) );
       });
     }
 
