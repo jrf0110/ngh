@@ -24,7 +24,8 @@
   "devDependencies": {
     "grunt": "~0.4.4",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-contrib-jshint": "~0.10.0"
+    "grunt-contrib-jshint": "~0.10.0",
+    "mocha": "~1.18.2"
   },
   "dependencies": {
     "commander": "^2.2.0",
