@@ -138,3 +138,17 @@ __Options:__
 , labels
 }
 ```
+
+### .getIssues( options, callback )
+
+Gets an array of issue objects
+
+__Options:__
+
+```javascript
+{
+  // Owner of the repository
+  organization
+  // Name of the repository
+, repo
+```
