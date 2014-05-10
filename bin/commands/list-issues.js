@@ -2,11 +2,16 @@ var config  = require('../../config');
 var utils   = require('../../lib/utils');
 var github  = require('../../');
 
-var tmpl = function( issue ){
-  return [
-    '#', issue.number, ' - ', issue.title
-  , ': ', issue.html_url
-  ].join('');
+var tmpl = function( issue, i, meta ){
+  var stripe = utils.color.bgXterm( i % 2 === 0 ? 232 : 233 );
+
+  return stripe([
+    '#', utils.padRight( issue.number.toString(), meta.greatestLengths.number )
+  , ' - ', issue.title
+  , utils.padding( process.stdout.columns - issue.title.length - meta.greatestLengths.number - 3 )
+  , '\n', utils.padding( meta.greatestLengths.number + 5 )
+  , utils.color.underline( issue.html_url )
+  ].join(''));
 };
 
 module.exports = function( orgname, options ){
@@ -51,8 +56,24 @@ module.exports = function( orgname, options ){
           throw error;
         }
 
+        var meta = {};
+
+        meta.greatestLengths = {};
+
         issues.forEach( function( issue ){
-          console.log( tmpl( issue ) );
+          utils.truncate( issue.title, 40, '...' );
+        });
+
+        ['number', 'title', 'html_url'].forEach( function( k ){
+          meta.greatestLengths[ k ] = issues.map( function( issue ){
+            return issue[ k ].toString().length;
+          }).reduce( function( a, b ){
+            return a > b ? a : b;
+          });
+        });
+
+        issues.forEach( function( issue, i ){
+          console.log( tmpl( issue, i, meta ) );
         });
       });
     }
