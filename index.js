@@ -148,6 +148,40 @@ module.exports.createClient = function( options ){
       });
     }
 
+  , getIssue: function( options, callback ){
+      [
+        'organization', 'repo', 'id'
+      ].forEach( function( key ){
+        if ( !(key in options) ){
+          throw new Error('Missing required first argument property: `' + key + '`');
+        }
+      });
+
+      var req = {
+        url:    utils.tmpl( config.issueUrl, {
+                    owner:  options.organization
+                  , repo:   options.repo
+                  , id:     options.id
+                  })
+      , method: 'GET'
+      , auth:   this.getBasicAuthCredentials()
+      , headers: {
+          'User-Agent': this.userAgent
+        }
+      };
+
+      request( req, function( error, res, body ){
+        switch ( res.statusCode ){
+          case 404: return callback( errors.repo.NOT_FOUND );
+          case 401: return callback( errors.auth.NOT_ALLOWED );
+          case 422: return callback( JSON.parse( body ).errors[0].message );
+          default:  break;
+        }
+
+        return callback( error, JSON.parse( body ) );
+      });
+    }
+
   , editIssue: function( options, callback ){
       [
         'organization', 'repo', 'id'

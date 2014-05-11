@@ -33,7 +33,7 @@ module.exports = function( options ){
           result = result.toString();
 
           options.title = result.split('\n')[0];
-          options.body = result.split('\n')[1] || '';
+          options.body = result.split('\n').slice(1).join('\n');
 
           next();
         });

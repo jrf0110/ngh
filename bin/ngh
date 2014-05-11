@@ -52,4 +52,17 @@ program
   .option('-r, --repo <repo_name>', 'Repository name')
   .action( require('./commands/list-issues') );
 
+program
+  .command('issue <issue_number>')
+  .description('View and edit an issue')
+  .option('-o, --organization <organization>', 'Repository owner/organization')
+  .option('-r, --repo <repo_name>', 'Repository name')
+  .option('-t, --title <title>', 'Issue title')
+  .option('-m, --title <title>', 'Issue title')
+  .option('-b, --body <body>', 'Issue body')
+  .option('-a, --assignee <assignee>', 'Login for the user that this issue should be assigned to')
+  .option('-i, --milestone <milestone>', 'Milestone ID to associate this issue with')
+  .option('-l, --labels <labels>', 'Comma separated label list', function( v ){ return v.split(','); })
+  .action( require('./commands/edit-issue') );
+
 program.parse( process.argv );
