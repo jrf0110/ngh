@@ -179,3 +179,19 @@ __Options:__
   // Name of the repository
 , repo
 ```
+
+### .getIssue( options, callback )
+
+Gets the issue object
+
+__Options:__
+
+```javascript
+{
+  // This is actually the issue number
+  id
+  // Owner of the repository
+, organization
+  // Name of the repository
+, repo
+```
