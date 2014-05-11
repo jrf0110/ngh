@@ -8,10 +8,14 @@ var tmpl = function( issue, i, meta ){
   return stripe([
     '#', utils.padRight( issue.number.toString(), meta.greatestLengths.number )
   , ' - ', issue.title
-  , utils.padding( process.stdout.columns - issue.title.length - meta.greatestLengths.number - 3 )
+  , utils.padding(
+      Math.abs( process.stdout.columns - issue.title.length - meta.greatestLengths.number - 3 )
+    )
   , '\n', utils.padding( meta.greatestLengths.number + 5 )
   , utils.color.xterm(249)( utils.color.underline( issue.html_url ) )
-  , utils.padding( process.stdout.columns - issue.html_url.length - meta.greatestLengths.number - 3 )
+  , utils.padding(
+      Math.abs( process.stdout.columns - issue.html_url.length - meta.greatestLengths.number - 3 )
+    )
   ].join(''));
 };
 
@@ -73,9 +77,13 @@ module.exports = function( orgname, options ){
           });
         });
 
+        console.log('');
+        console.log( new Array( process.stdout.columns ).join('=') );
         issues.forEach( function( issue, i ){
           console.log( tmpl( issue, i, meta ) );
         });
+        console.log( new Array( process.stdout.columns ).join('=') );
+        console.log('');
       });
     }
   ]);

@@ -148,6 +148,49 @@ module.exports.createClient = function( options ){
       });
     }
 
+  , editIssue: function( options, callback ){
+      [
+        'organization', 'repo', 'id'
+      ].forEach( function( key ){
+        if ( !(key in options) ){
+          throw new Error('Missing required first argument property: `' + key + '`');
+        }
+      });
+
+      var rbody = {};
+
+      [
+        'title', 'body', 'assignee', 'state', 'milestone', 'labels'
+      ].forEach( function( key ){
+        rbody[ key ] = options[ key ];
+      });
+
+      var req = {
+        url:    utils.tmpl( config.issueUrl, {
+                    owner:  options.organization
+                  , repo:   options.repo
+                  , id:     options.id
+                  })
+      , method: 'PATCH'
+      , auth:   this.getBasicAuthCredentials()
+      , body:   JSON.stringify( rbody )
+      , headers: {
+          'User-Agent': this.userAgent
+        }
+      };
+
+      request( req, function( error, res, body ){
+        switch ( res.statusCode ){
+          case 404: return callback( errors.repo.NOT_FOUND );
+          case 401: return callback( errors.auth.NOT_ALLOWED );
+          case 422: return callback( JSON.parse( body ).errors[0].message );
+          default:  break;
+        }
+
+        return callback( error, JSON.parse( body ) );
+      });
+    }
+
   , getBasicAuthCredentials: function(){
       return {
         username: this.token || config.token

@@ -41,9 +41,9 @@ program
 program
   .command('close <issue_number>')
   .description('closes an issue')
-  .action( function( id, options ){
-    console.log('close', id );
-  });
+  .option('-o, --organization <organization>', 'Repository owner/organization')
+  .option('-r, --repo <repo_name>', 'Repository name')
+  .action( require('./commands/close-issue') );
 
 program
   .command('issues [org/name]')
