@@ -10,7 +10,8 @@ var tmpl = function( issue, i, meta ){
   , ' - ', issue.title
   , utils.padding( process.stdout.columns - issue.title.length - meta.greatestLengths.number - 3 )
   , '\n', utils.padding( meta.greatestLengths.number + 5 )
-  , utils.color.underline( issue.html_url )
+  , utils.color.xterm(249)( utils.color.underline( issue.html_url ) )
+  , utils.padding( process.stdout.columns - issue.html_url.length - meta.greatestLengths.number - 3 )
   ].join(''));
 };
 
