@@ -2,6 +2,8 @@
 
 Github API client with CLI
 
+![ngh issues in action](http://storage.j0.hn/ngh.gif)
+
 __Install:__
 
 ```
