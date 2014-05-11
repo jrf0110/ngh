@@ -139,6 +139,33 @@ __Options:__
 }
 ```
 
+### .editIssue( options, callback )
+
+Edit an issue.
+
+__Options:__
+
+```javascript
+{
+  // This is actually the issue number
+  id
+  // Owner of the repository
+, organization
+  // Name of the repository
+, repo
+  // string  Required. The title of the issue.
+, title
+  // string  The contents of the issue.
+, body
+  // string  Login for the user that this issue should be assigned to. NOTE: Only users with push access can set the assignee for new issues. The assignee is silently dropped otherwise.
+, assignee
+  //number  Milestone to associate this issue with. NOTE: Only users with push access can set the milestone for new issues. The milestone is silently dropped otherwise.
+, milestone
+  // array of strings  Labels to associate with this issue. NOTE: Only users with push access can set labels for new issues. Labels are silently dropped otherwise.
+, labels
+}
+```
+
 ### .getIssues( options, callback )
 
 Gets an array of issue objects
