@@ -26,8 +26,8 @@ program
   .action( require('./commands/remove-repo') );
 
 program
-  .command('open')
-  .description('opens an issue')
+  .command('open [issue_number]')
+  .description('opens or re-opens an issue')
   .option('-o, --organization <organization>', 'Repository owner/organization')
   .option('-r, --repo <repo_name>', 'Repository name')
   .option('-t, --title <title>', 'Issue title')

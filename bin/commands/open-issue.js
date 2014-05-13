@@ -2,7 +2,7 @@ var config  = require('../../config');
 var utils   = require('../../lib/utils');
 var github  = require('../../');
 
-module.exports = function( options ){
+module.exports = function( id, options ){
   var gh = github.createClient();
 
   utils.async.series([
@@ -21,6 +21,26 @@ module.exports = function( options ){
       } else {
         return next();
       }
+    }
+
+  , function( next ){
+      if ( !id ) return next();
+
+      var opts = {
+        organization: options.organization
+      , repo:         options.repo
+      , id:           id
+      , state:        'open'
+      };
+
+      gh.editIssue( opts, function( error, result ){
+        if ( error ){
+          throw error;
+        }
+
+        console.log('Issue #' + result.number + ': ' + utils.color.green('Open') );
+        console.log( result.title );
+      });
     }
 
   , function( next ){
