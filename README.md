@@ -20,11 +20,11 @@ __CLI Usage:__
   Commands:
 
     create [options] [name] creates a new repository
-    remove [org/name]       removes a new repository
-    open   [options]        opens an issue
-    close  <issue_number>   closes an issue
-    issues [org/name]       lists issues for org/name or current repo
-    issue  [options] <issue_number> View and edit an issue
+    remove [org/name]      removes a new repository
+    open [options] [issue_number] opens or re-opens an issue
+    close [options] <issue_number> closes an issue
+    issues [options] [org/name] lists issues for org/name or current repo
+    issue [options] <issue_number> View and edit an issue
 
   Options:
 

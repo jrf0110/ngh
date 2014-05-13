@@ -38,8 +38,10 @@ module.exports = function( id, options ){
           process.exit(1);
         }
 
+        console.log('');
         console.log('Issue #' + result.number + ': ' + utils.color.red('Closed') );
         console.log( result.title );
+        console.log('');
         process.exit(0);
       });
     }
