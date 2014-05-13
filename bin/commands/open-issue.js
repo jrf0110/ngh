@@ -38,8 +38,10 @@ module.exports = function( id, options ){
           throw error;
         }
 
+        console.log('');
         console.log('Issue #' + result.number + ': ' + utils.color.green('Open') );
         console.log( result.title );
+        console.log('');
       });
     }
 
@@ -70,8 +72,11 @@ module.exports = function( id, options ){
           process.exit(1);
         }
 
-        console.log( 'Opened Issue #' + result.id, result.title );
-        console.log( result.html_url );
+        console.log('');
+        console.log('Issue #' + result.number + ': ' + utils.color.green('Open') );
+        console.log( result.title );
+        console.log( utils.color.underline( result.html_url ) );
+        console.log('');
         process.exit(0);
       });
     }
