@@ -262,8 +262,6 @@ module.exports.createClient = function( options ){
         }
       };
 
-      console.log(req.url, req.body);
-
       request( req, function( error, res, body ){
 
         switch ( res.statusCode ){
