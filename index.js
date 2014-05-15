@@ -225,6 +225,58 @@ module.exports.createClient = function( options ){
       });
     }
 
+  , openPullRequest: function( options, callback ){
+      [
+        'organization', 'repo', 'head', 'base'
+      ].forEach( function( key ){
+        if ( !(key in options) ){
+          throw new Error('Missing required first argument property: `' + key + '`');
+        }
+      });
+
+      var rbody = {};
+
+      if ( !options.issue )
+      if ( !options.title ){
+        throw new Error('Missing required first argument property: `title`');
+      }
+
+      [
+        'issue', 'title', 'body', 'head', 'base'
+      ].forEach( function( key ){
+        if ( key in options ){
+          rbody[ key ] = options[ key ];
+        }
+      });
+
+      var req = {
+        url:    utils.tmpl( config.pullRequestsUrl, {
+                    owner:  options.organization
+                  , repo:   options.repo
+                  })
+      , method: 'POST'
+      , auth:   this.getBasicAuthCredentials()
+      , body:   JSON.stringify( rbody )
+      , headers: {
+          'User-Agent': this.userAgent
+        }
+      };
+
+      console.log(req.url, req.body);
+
+      request( req, function( error, res, body ){
+
+        switch ( res.statusCode ){
+          case 404: return callback( errors.repo.NOT_FOUND );
+          case 401: return callback( errors.auth.NOT_ALLOWED );
+          // Hack for now
+          case 422: return callback('Validation failed. Did you specify a branch that exists on remote?');
+          default:  break;
+        }
+        return callback( error, JSON.parse( body ) );
+      });
+    }
+
   , getBasicAuthCredentials: function(){
       return {
         username: this.token || config.token

@@ -1,5 +1,6 @@
-var assert = require('assert');
-var utils  = require('../lib/utils');
+var fs      = require('fs');
+var assert  = require('assert');
+var utils   = require('../lib/utils');
 
 describe('Utils', function(){
   it ('should get the current repository url', function( done ){
@@ -16,6 +17,8 @@ describe('Utils', function(){
     var shouldBe = {
       organization: 'jrf0110'
     , name:         'ngh'
+    , repo:         'ngh'
+    , head:          fs.readFileSync('./current-branch').toString()
     };
 
     utils.getCurrentRepositoryInfo( function( error, info ){

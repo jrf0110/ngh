@@ -65,4 +65,15 @@ program
   .option('-l, --labels <labels>', 'Comma separated label list', function( v ){ return v.split(','); })
   .action( require('./commands/edit-issue') );
 
+program
+  .command('pull [issue_number]')
+  .description('Open a pull request optionally with attached to an issue')
+  .option('-o, --organization <organization>', 'Repository owner/organization')
+  .option('-r, --repo <repo_name>', 'Repository name')
+  .option('-t, --title <title>', 'Issue title')
+  .option('-b, --body <body>', 'Contents')
+  .option('-h, --head <head>', 'Name of the branch where your changes are implemented')
+  .option('-a, --base <base>', 'Name of the branch you want your changes pulled into', 'master')
+  .action( require('./commands/open-pull-request') );
+
 program.parse( process.argv );
