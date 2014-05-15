@@ -25,6 +25,7 @@ __CLI Usage:__
     close [options] <issue_number> closes an issue
     issues [options] [org/name] lists issues for org/name or current repo
     issue [options] <issue_number> View and edit an issue
+    pull [options] [issue_number] Open a pull request optionally with attached to an issue
 
   Options:
 
@@ -197,4 +198,25 @@ __Options:__
 , organization
   // Name of the repository
 , repo
+```
+
+### .openPullRequest( options, callback )
+
+Opens a pull request
+
+__Options:__
+
+```javascript
+{
+  // string  Required (unless issue specified). The title of the pull request.
+  title
+  // number  The issue number you're attach the PR to
+, issue
+  // string  Required. The name of the branch where your changes are implemented. For cross-repository pull requests in the same network, namespace head with a user like this: username:branch.
+, head
+  // string  Required. The name of the branch you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repository that requests a merge to a base of another repository.
+, base
+  // string  The contents of the pull request.
+, body
+}
 ```
