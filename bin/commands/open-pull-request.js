@@ -39,7 +39,7 @@ module.exports = function( id, options ){
       if ( options.issue ) return next();
       if ( options.title ) return next();
 
-      utils.getIssueEditor( function( error, result ){
+      utils.getIssueEditor( '# ', function( error, result ){
         if ( error ){
           return console.log('No data?');
         }

@@ -47,15 +47,15 @@ module.exports = function( id, options ){
 
   , function( next ){
       if ( !options.title ){
-        utils.getIssueEditor( function( error, result ){
+        utils.getIssueEditor( '# ', function( error, result ){
           if ( error ){
             return console.log('No data?');
           }
 
-          result = result.toString();
+          result = utils.parseTitleBodyFromText( result.toString() );
 
-          options.title = result.split('\n')[0];
-          options.body = result.split('\n').slice(1).join('\n');
+          options.title = result.title;
+          options.body  = result.body;
 
           next();
         });
