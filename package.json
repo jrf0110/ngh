@@ -1,6 +1,6 @@
 {
   "name": "ngh",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Github client",
   "main": "index.js",
   "scripts": {
