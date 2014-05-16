@@ -2,8 +2,8 @@ var fs      = require('fs');
 var assert  = require('assert');
 var utils   = require('../lib/utils');
 
-describe('Utils', function(){
-  it ('should get the current repository url', function( done ){
+describe('utils', function(){
+  it ('.getCurrentRepositoryUrl( callback )', function( done ){
     var shouldBe = 'git@github.com:jrf0110/ngh.git';
 
     utils.getCurrentRepositoryUrl( function( error, name ){
@@ -13,7 +13,7 @@ describe('Utils', function(){
     });
   });
 
-  it ('should get the current repository info', function( done ){
+  it ('getCurrentRepositoryInfo( callback )', function( done ){
     var shouldBe = {
       organization: 'jrf0110'
     , name:         'ngh'
@@ -30,5 +30,20 @@ describe('Utils', function(){
 
       done();
     });
+  });
+
+  it ('.parseTitleBodyFromText( str )', function(){
+    var shouldBe = {
+      title: 'This is the title'
+    , body: 'And this is the body\n> Some other stuff\n__Blah:__\n\n* list\n* list'
+    };
+
+    var result = utils.parseTitleBodyFromText(
+      [ '# ' + shouldBe.title, '', shouldBe.body ].join('\n')
+    );
+
+    for ( var key in shouldBe ){
+      assert.equal( shouldBe[ key ], result[ key ] );
+    }
   });
 });

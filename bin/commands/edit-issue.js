@@ -49,7 +49,8 @@ module.exports = function( id, options ){
       if ( !needsEditorOpen ) return next();
 
       var content = [
-        issue.title
+        '# ' + issue.title
+      , ''
       , issue.body
       ].join('\n');
 
@@ -58,10 +59,10 @@ module.exports = function( id, options ){
           return console.log('No data?');
         }
 
-        result = result.toString();
+        result = utils.parseTitleBodyFromText( result.toString() );
 
-        options.title = result.split('\n')[0];
-        options.body = result.split('\n').slice(1).join('\n');
+        options.title = result.title;
+        options.body  = result.body;
 
         if ( options.title === issue.title )
         if ( options.body === issue.body ){
