@@ -1,15 +1,32 @@
 #!/usr/bin/env node
 
+var fs        = require('fs');
+var path      = require('path');
 var readline  = require('readline');
 var program   = require('commander');
 var config    = require('../config');
 var utils     = require('../lib/utils');
 
+function promptCreds( callback ){
+  var tokenFile = path.join( process.env.HOME, '.config', config.ghauth.configName + '.json' );
 
-var rl = readline.createInterface({
-  input:  process.stdin
-, output: process.stdout
-});
+  if ( fs.existsSync( tokenFile ) ){
+    return callback( null, require( tokenFile ) );
+  }
+
+  var rl = readline.createInterface({
+    input:  process.stdin
+  , output: process.stdout
+  });
+  
+  rl.question('Name of your token (example: NGH Macbook): ', function( name ){
+    config.ghauth.note = name || config.ghauth.note;
+
+    rl.close();
+
+    utils.ghauth( config.ghauth, callback );
+  });
+}
 
 program.version('0.1.0');
 
@@ -83,19 +100,13 @@ if ( !config.token ){
   if ( process.argv.indexOf('--token') > -1 ){
     config.token = process.argv[ process.argv.indexOf('--token') + 1 ];
   } else {
-    rl.question('Name of your token (example: NGH Macbook): ', function( name ){
-      config.ghauth.note = name || config.ghauth.note;
+    promptCreds(function( error, auth ){
+      if ( error ){
+        throw error;
+      }
 
-      rl.close();
-
-      utils.ghauth( config.ghauth, function( error, auth ){
-        if ( error ){
-          throw error;
-        }
-
-        config.token = auth.token;
-        program.parse( process.argv );
-      });
+      config.token = auth.token;
+      program.parse( process.argv );
     });
   }
 } else {
