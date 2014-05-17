@@ -10,7 +10,7 @@ __Install:__
 npm install -g ngh
 ```
 
-Create a [Github Personal Access Token](https://github.com/settings/applications). Export it in your environment as `NGH_ACCESS_TOKEN`.
+___Optionally___ create a [Github Personal Access Token](https://github.com/settings/applications) and export it in your environment as `NGH_ACCESS_TOKEN`.
 
 __CLI Usage:__
 
