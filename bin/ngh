@@ -83,7 +83,7 @@ if ( !config.token ){
   if ( process.argv.indexOf('--token') > -1 ){
     config.token = process.argv[ process.argv.indexOf('--token') + 1 ];
   } else {
-    rl.question('Name of your token: (example: NGH Macbook)', function( name ){
+    rl.question('Name of your token (example: NGH Macbook): ', function( name ){
       config.ghauth.note = name || config.ghauth.note;
 
       rl.close();
