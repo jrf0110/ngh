@@ -32,6 +32,7 @@
     "request": "^2.34.0",
     "async": "~0.8.0",
     "editor-in": "~0.2.0",
-    "cli-color": "~0.3.2"
+    "cli-color": "~0.3.2",
+    "ghauth": "~0.1.1"
   }
 }
