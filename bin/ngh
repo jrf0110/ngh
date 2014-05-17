@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 
-var program = require('commander');
-var config  = require('../config');
+var readline  = require('readline');
+var program   = require('commander');
+var config    = require('../config');
+var utils     = require('../lib/utils');
 
-if ( !config.token && process.argv.indexOf('--token') === -1 && process.argv.indexOf('--help') === -1 ){
-  console.log('Must export your github personal access token as `NGH_ACCESS_TOKEN` or use the --token flag');
-  process.exit(1);
-}
+
+var rl = readline.createInterface({
+  input:  process.stdin
+, output: process.stdout
+});
 
 program.version('0.1.0');
 
@@ -76,4 +79,25 @@ program
   .option('-a, --base <base>', 'Name of the branch you want your changes pulled into', 'master')
   .action( require('./commands/open-pull-request') );
 
-program.parse( process.argv );
+if ( !config.token ){
+  if ( process.argv.indexOf('--token') > -1 ){
+    config.token = process.argv[ process.argv.indexOf('--token') + 1 ];
+  } else {
+    rl.question('Name of your token: (example: NGH Macbook)', function( name ){
+      config.ghauth.note = name || config.ghauth.note;
+
+      rl.close();
+
+      utils.ghauth( config.ghauth, function( error, auth ){
+        if ( error ){
+          throw error;
+        }
+
+        config.token = auth.token;
+        program.parse( process.argv );
+      });
+    });
+  }
+} else {
+  program.parse( process.argv );
+}

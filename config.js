@@ -6,4 +6,10 @@ module.exports = {
 , pullRequestsUrl:  'https://api.github.com/repos/:owner/:repo/pulls'
 , token:            process.env['NGH_ACCESS_TOKEN']
 , defaultEditor:    'vim'
+, ghauth: {
+    configName:     'ngh'
+  , userAgent:      'ngh'
+  , scopes:         ['repo', 'write:repo_hook', 'delete_repo', 'user']
+  , note:           'NGH CLI'
+  }
 };
