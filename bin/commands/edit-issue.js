@@ -81,8 +81,10 @@ module.exports = function( id, options ){
           process.exit(1);
         }
 
-        console.log( 'Issue #' + result.number, 'saved!' );
-        console.log( result.html_url );
+        console.log('');
+        console.log( 'Issue #' + result.number, utils.color.green('Saved') );
+        console.log( utils.color.underline( result.html_url ) );
+        console.log('');
         process.exit(0);
       });
     }
