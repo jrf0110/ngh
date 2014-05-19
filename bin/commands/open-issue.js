@@ -77,6 +77,13 @@ module.exports = function( id, options ){
         console.log( result.title );
         console.log( utils.color.underline( result.html_url ) );
         console.log('');
+
+        if ( options.open ){
+          return utils.openUrl( result.html_url, function(){
+            process.exit(0);
+          });
+        }
+
         process.exit(0);
       });
     }

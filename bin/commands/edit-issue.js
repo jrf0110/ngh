@@ -35,6 +35,12 @@ module.exports = function( id, options ){
       gh.getIssue( opts, function( error, issue ){
         if ( error ) throw error;
 
+        if ( options.open ){
+          return utils.openUrl( issue.html_url, function(){
+            process.exit(0);
+          });
+        }
+
         next( null, issue );
       });
     }
@@ -85,6 +91,7 @@ module.exports = function( id, options ){
         console.log( 'Issue #' + result.number, utils.color.green('Saved') );
         console.log( utils.color.underline( result.html_url ) );
         console.log('');
+
         process.exit(0);
       });
     }
