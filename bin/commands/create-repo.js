@@ -1,5 +1,6 @@
-var config = require('../../config');
-var github = require('../../');
+var config  = require('../../config');
+var github  = require('../../');
+var utils   = require('../../lib/utils');
 
 module.exports = function( name, options ){
   var gh = github.createClient();
@@ -17,6 +18,13 @@ module.exports = function( name, options ){
     console.log( 'Push an existing repository' );
     console.log( '  git remote add origin ' + r.git_url );
     console.log( '  git push -u origin master' );
+
+    if ( options.open ){
+      return utils.openUrl( r.html_url, function(){
+        process.exit(0);
+      });
+    }
+
     process.exit(0);
   });
 };

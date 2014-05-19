@@ -42,6 +42,13 @@ module.exports = function( id, options ){
         console.log('Issue #' + result.number + ': ' + utils.color.red('Closed') );
         console.log( result.title );
         console.log('');
+
+        if ( options.open ){
+          return utils.openUrl( result.html_url, function(){
+            process.exit(0);
+          });
+        }
+
         process.exit(0);
       });
     }

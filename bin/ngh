@@ -38,6 +38,7 @@ program
   .option('-d, --description <description>', 'Repository description')
   .option('-h, --homepage <homepage>', 'Repository homepage')
   .option('-p, --private', 'Denotes that the repo is private')
+  .option('--open', 'Opens the repo in your web browser afterwards')
   .action( require('./commands/create-repo') );
 
 program
@@ -56,6 +57,7 @@ program
   .option('-a, --assignee <assignee>', 'Login for the user that this issue should be assigned to')
   .option('-i, --milestone <milestone>', 'Milestone ID to associate this issue with')
   .option('-l, --labels <labels>', 'Comma separated label list', function( v ){ return v.split(','); })
+  .option('--open', 'Opens the issue in your web browser afterwards')
   .action( require('./commands/open-issue') );
 
 program
@@ -63,6 +65,7 @@ program
   .description('closes an issue')
   .option('-o, --organization <organization>', 'Repository owner/organization')
   .option('-r, --repo <repo_name>', 'Repository name')
+  .option('--open', 'Opens the issue in your web browser afterwards')
   .action( require('./commands/close-issue') );
 
 program
@@ -70,6 +73,7 @@ program
   .description('lists issues for org/name or current repo')
   .option('-o, --organization <organization>', 'Repository owner/organization')
   .option('-r, --repo <repo_name>', 'Repository name')
+  .option('--open', 'Opens the issue in your web browser afterwards')
   .action( require('./commands/list-issues') );
 
 program
@@ -83,6 +87,7 @@ program
   .option('-a, --assignee <assignee>', 'Login for the user that this issue should be assigned to')
   .option('-i, --milestone <milestone>', 'Milestone ID to associate this issue with')
   .option('-l, --labels <labels>', 'Comma separated label list', function( v ){ return v.split(','); })
+  .option('--open', 'Opens the issue in your web browser afterwards')
   .action( require('./commands/edit-issue') );
 
 program
@@ -94,6 +99,7 @@ program
   .option('-b, --body <body>', 'Contents')
   .option('-h, --head <head>', 'Name of the branch where your changes are implemented')
   .option('-a, --base <base>', 'Name of the branch you want your changes pulled into', 'master')
+  .option('--open', 'Opens the issue in your web browser afterwards')
   .action( require('./commands/open-pull-request') );
 
 if ( !config.token ){
