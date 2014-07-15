@@ -74,6 +74,7 @@ program
   .option('-o, --organization <organization>', 'Repository owner/organization')
   .option('-r, --repo <repo_name>', 'Repository name')
   .option('--open', 'Opens the issue in your web browser afterwards')
+  .option('--format <format>', 'Format of the output')
   .action( require('./commands/list-issues') );
 
 program
