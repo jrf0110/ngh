@@ -44,6 +44,14 @@ Push an existing repository
   git push -u origin master
 ```
 
+__Example:__
+
+List issues in current repo, write to file as json
+
+```
+$ ngh issues --format json > issues.json
+```
+
 ## API
 
 The actual client can be found in `index.js`.
