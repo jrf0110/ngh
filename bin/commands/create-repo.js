@@ -16,7 +16,7 @@ module.exports = function( name, options ){
 
     console.log( 'Created repository:', name );
     console.log( 'Push an existing repository' );
-    console.log( '  git remote add origin ' + r.git_url );
+    console.log( '  git remote add origin ' + r.ssh_url );
     console.log( '  git push -u origin master' );
 
     if ( options.open ){
